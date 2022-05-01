@@ -30,8 +30,25 @@ const firstRun = async (smartcast: Device) => {
       );
       const macAddress = await arp.toMAC(ipAddress);
       if (authToken && macAddress) {
+        const shouldChangeToInput = (
+          (await askPromisedQuestion(
+            'Do you want to automatically switch to an input? [y/N] '
+          )) || ''
+        ).toLocaleLowerCase();
+        let defaultInputName;
+        if (shouldChangeToInput === 'y') {
+          while (!defaultInputName) {
+            defaultInputName =
+              (await askPromisedQuestion('Enter input name: ')) || '';
+          }
+        }
         // create and write config file
-        const config = createConfig(ipAddress, authToken, macAddress);
+        const config = createConfig(
+          ipAddress,
+          authToken,
+          macAddress,
+          defaultInputName
+        );
         console.log('attempting to write config file...');
         await writeConfig(config);
       } else {

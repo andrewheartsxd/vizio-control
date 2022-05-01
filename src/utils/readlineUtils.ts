@@ -30,10 +30,12 @@ const initReadline = () => {
   // https://stackoverflow.com/questions/66472406/promisify-in-redis-client-violates-eslint-rules
   const promisedQuestion = promisify(rl.question).bind(rl); // eslint-disable-line @typescript-eslint/unbound-method
 
+  const closeReadline = closeReadlineInterface(rl);
+
   return {
     rl,
     askPromisedQuestion: promisedQuestionCreator(promisedQuestion),
-    closeReadline: closeReadlineInterface(rl),
+    closeReadline,
   };
 };
 

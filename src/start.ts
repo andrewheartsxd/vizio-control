@@ -2,8 +2,8 @@ import wol from 'wol';
 import type { Device } from 'vizio-smart-cast';
 
 import type { FirstRun } from './firstRun';
-import { togglePower } from './utils';
-import { Config } from './types';
+import { togglePower, switchInput } from './utils';
+import { Config, isPowerCommand } from './types';
 
 export type Start = typeof start;
 
@@ -11,7 +11,7 @@ async function start(smartcast: Device, firstRun: FirstRun): Promise<void>;
 async function start(
   smartcast: Device,
   config: Config,
-  powerCommand: string
+  powerCommand?: string
 ): Promise<void>;
 async function start(
   smartcast: Device,
@@ -25,16 +25,24 @@ async function start(
     await firstRun(smartcast);
   } else {
     const config = configOrFirstRun;
-    if (config && powerCommand) {
-      const tv = new smartcast(config.ip, config.authToken);
+    if (config && isPowerCommand(powerCommand)) {
+      const { ip, authToken, macAddress, defaultInputName } = config;
+      const tv = new smartcast(ip, authToken);
       try {
-        const awake = await wol.wake(config.macAddress);
+        const awake = await wol.wake(macAddress);
         if (awake) {
           await togglePower(tv, powerCommand);
+          if (defaultInputName && powerCommand === 'on') {
+            await switchInput(tv, defaultInputName);
+          }
         }
       } catch (err) {
         return console.log('Failed to wake TV:', err);
       }
+    } else {
+      return console.log(
+        `Config is not defined or Invalid power command (Use 'on', 'off', or 'toggle')`
+      );
     }
   }
 }

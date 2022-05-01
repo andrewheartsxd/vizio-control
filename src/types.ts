@@ -1,9 +1,10 @@
-import type { Discovery } from 'vizio-smart-cast';
+import type { Device, Discovery } from 'vizio-smart-cast';
 
 export type Config = {
   ip: string;
   authToken: string;
   macAddress: string;
+  defaultInputName?: string;
 };
 
 export type DiscoveredDevices = Discovery[];
@@ -34,6 +35,15 @@ export type PowerMode = {
   URI: '/state/device/power_mode';
 };
 
+export type PowerCommand = keyof Device['control']['power'];
+export function isPowerCommand(
+  powerCommand?: string
+): powerCommand is PowerCommand {
+  return (
+    powerCommand === 'on' || powerCommand === 'off' || powerCommand === 'toggle'
+  );
+}
+
 export function isNodeError(error: unknown): error is NodeJS.ErrnoException {
   return (
     error instanceof Error &&
@@ -43,3 +53,20 @@ export function isNodeError(error: unknown): error is NodeJS.ErrnoException {
       !!(error as NodeJS.ErrnoException).syscall)
   );
 }
+
+type InputItem = {
+  HASHVAL: number;
+  NAME: string;
+  ENABLED: string;
+  VALUE: string;
+  CNAME: string;
+  TYPE: string;
+};
+// https://github.com/heathbar/vizio-smart-cast#inputcurrent
+export type CurrentInputResponse = {
+  STATUS: { RESULT: string; DETAIL: string };
+  ITEMS: InputItem[];
+  HASHLIST: number[];
+  URI: string;
+  PARAMETERS: { FLAT: string; HELPTEXT: string; HASHONLY: string };
+};

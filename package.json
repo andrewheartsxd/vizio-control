@@ -4,7 +4,8 @@
   "description": "Control Vizio Smart TVs",
   "main": "app.ts",
   "scripts": {
-    "start": "nodemon dist/app.js",
+    "start": "node dist/app.js",
+    "start:watch": "nodemon dist/app.js",
     "test": "jest --colors",
     "test:coverage": "jest --colors --coverage",
     "lint": "eslint . --ext .ts",
@@ -12,7 +13,7 @@
     "clean": "rimraf ./dist",
     "preLaunch": "npm run clean && npm run build"
   },
-  "author": "",
+  "author": "andrewheartsxd",
   "license": "MIT",
   "prettier": {
     "singleQuote": true,

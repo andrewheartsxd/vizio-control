@@ -7,12 +7,28 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Launch (no power command)",
       "skipFiles": [
         "<node_internals>/**"
       ],
       "preLaunchTask": "npm: preLaunch",
-      "program": "${workspaceFolder}\\src\\app.ts",
+      "program": "${workspaceFolder}/src/app.ts",
+      "cwd": "${workspaceRoot}/dist", // change working directory to dist (so can find ../config.json)
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "Launch - Power On",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/src/app.ts",
+      "cwd": "${workspaceRoot}/dist", // change working directory to dist (so can find ../config.json)
+      "args": ["on"], // pass in 'on' argument
       "outFiles": [
         "${workspaceFolder}/dist/**/*.js"
       ],
