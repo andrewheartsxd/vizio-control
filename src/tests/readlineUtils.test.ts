@@ -1,9 +1,11 @@
 const mockAnswer = 'this is the way';
 const mockReadlineQuestion = jest.fn().mockResolvedValue(mockAnswer);
 const mockReadlineClose = jest.fn();
+const mockReadlineOn = jest.fn();
 const mockReadlineCreateInterface = jest.fn(() => ({
   question: mockReadlineQuestion,
   close: mockReadlineClose,
+  on: mockReadlineOn,
 }));
 
 jest.mock('readline', () => ({

@@ -32,6 +32,10 @@ const initReadline = () => {
 
   const closeReadline = closeReadlineInterface(rl);
 
+  rl.on('SIGINT', () => {
+    closeReadline();
+  });
+
   return {
     rl,
     askPromisedQuestion: promisedQuestionCreator(promisedQuestion),
