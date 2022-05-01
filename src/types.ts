@@ -5,6 +5,7 @@ export type Config = {
   authToken: string;
   macAddress: string;
   defaultInputName?: string;
+  psShutdownFilePath?: string; // Leave option to write psShutdownFilePath if needed in the future
 };
 
 export type DiscoveredDevices = Discovery[];

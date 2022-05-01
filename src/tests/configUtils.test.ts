@@ -3,6 +3,8 @@ jest.mock('fs/promises', () => ({
   writeFile: mockWriteFile,
 }));
 
+import { sep } from 'path';
+
 import { createConfig, writeConfig } from '../utils/configUtils';
 import type { Config } from '../types';
 import { CONFIG_FILE_DIRECTORY, CONFIG_FILE_NAME } from '../enums';
@@ -32,7 +34,7 @@ describe('configUtils', () => {
   it('should write a config file', async () => {
     await writeConfig(mockConfig);
     expect(mockWriteFile).toHaveBeenCalledWith(
-      `${CONFIG_FILE_DIRECTORY}${CONFIG_FILE_NAME}`,
+      `${CONFIG_FILE_DIRECTORY}${sep}${CONFIG_FILE_NAME}`,
       JSON.stringify(mockConfig)
     );
   });
