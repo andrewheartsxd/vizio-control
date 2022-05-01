@@ -4,8 +4,8 @@
   "description": "Control Vizio Smart TVs",
   "main": "app.ts",
   "scripts": {
-    "start": "node dist/app.js",
-    "start:watch": "nodemon dist/app.js",
+    "start": "cd ./dist && node app.js",
+    "start:watch": "cd ./dist && nodemon app.js",
     "test": "jest --colors",
     "test:coverage": "jest --colors --coverage",
     "lint": "eslint . --ext .ts",
