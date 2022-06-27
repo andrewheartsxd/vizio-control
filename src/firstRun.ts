@@ -27,10 +27,7 @@ const firstRun = async (smartcast: Device) => {
   // ).toLocaleLowerCase();
   // const psShutdownBlockAnswer = await psShutdownBlock(askPromisedQuestion);
   const psShutdownBlockAnswer = await psShutdownBlock();
-  console.log(
-    'psShutdownBlockAnswer: ',
-    psShutdownBlockAnswer.psShutdownExists
-  );
+  console.log('psShutdownBlockAnswer: ', psShutdownBlockAnswer);
   // const {
   //   psShutdownFilePath,
   //   proceed: proceedFromPsShutdownBlock,
