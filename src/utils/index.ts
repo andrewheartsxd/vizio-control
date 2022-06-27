@@ -5,3 +5,4 @@ export { default as initReadline } from './readlineUtils';
 export { default as togglePower } from './togglePower';
 export { default as switchInput } from './switchInput';
 export { default as writeBatFiles } from './batUtils';
+export * from './promptUtils';

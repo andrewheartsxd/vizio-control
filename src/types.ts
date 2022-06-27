@@ -1,5 +1,10 @@
 import type { Device, Discovery } from 'vizio-smart-cast';
 
+export type Answer = {
+  proceed: boolean;
+  error?: string | null;
+};
+
 export type Config = {
   ip: string;
   authToken: string;
